@@ -20,7 +20,9 @@ public class OrdersMapImpl implements Orders {
 
     @Override
     public void addTacoToOrder(final String orderid, final TacoImpl taco) throws OrderDoesNotExistException {
-        List<TacoImpl> tacos = new ArrayList<>();
+        if(orderHashMap.get(orderid)==null)
+            throw new OrderDoesNotExistException(orderid);
+        List<TacoImpl> tacos = orderHashMap.get(orderid);
         tacos.add(taco);
         if(orderHashMap.put(orderid,tacos)==null){
             throw new OrderDoesNotExistException(orderid);
